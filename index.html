@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Alien Life</title>
+<script>
+var o = 1,
+	a = Math.random() * -200,
+	b = Math.random() * -200,
+	c = Math.random() * -200,
+	lol = (Math.random() * 10).toFixed(3),
+	W = 300,
+	H = 300,
+	initVars,
+	blah,
+	canvas,
+	ctx;
+
+window.onload = function () {
+
+	canvas = document.createElement('canvas');
+
+	canvas.setAttribute('style', 'border:1px solid black');
+	canvas.width = W;
+	canvas.height = H;
+
+	document.body.appendChild(canvas);
+
+	ctx = canvas.getContext('2d');
+
+	function color(z, n) {
+		return Math.sin((z + n) * lol) * 255;
+	};
+
+
+
+	blah = function (o) {
+		var n;
+
+		canvasData = ctx.createImageData(W, H);
+
+		n = o / 7;
+
+		for (var x = 0; x < canvasData.width; x++) {
+			for (var y = 0; y < canvasData.height; y++) {
+				var idx = (x + y * canvas.width) * 4;
+
+				canvasData.data[idx + 0] = color((x * y), n) + a;
+				canvasData.data[idx + 1] = color((x * y), n) + b;
+				canvasData.data[idx + 2] = color((x * y), n) + c;
+				canvasData.data[idx + 3] = 255;
+			}
+		}
+
+		ctx.putImageData(canvasData, 0, 0);
+
+	};
+
+	initVars = function () {
+		lol = (Math.random() * 10).toFixed(3);
+
+		a = Math.random() * -200;
+		b = Math.random() * -200;
+		c = Math.random() * -200;
+	};
+
+	window.setInterval("blah(o++)", 10);
+	window.setInterval("initVars()", 5000);
+
+}
+</script>
+<meta name="viewport" content="width=device-width, user-scalable=no">
+</head>
+<body>
+
+</body>
+</html>
